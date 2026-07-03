@@ -83,6 +83,18 @@ level: "ERROR"
 
 ---
 
+## ELK Stack Visuals and Trends
+
+![Host State Trends](images/hst_state_trends.png)
+![Host Status](images/hst_status.png)
+![Host Status Details](images/hst_status_dtl.png)
+![Server State Trends](images/serv_state_trends.png)
+![Server Status](images/serv_status.png)
+![Kibana Visual 1](images/kib_1.png)
+![Kibana Visual 2](images/kib_2.png)
+
+---
+
 ## Future Improvements
 
 * Add Kibana dashboards (bar charts by log level, pie charts by service, etc.)

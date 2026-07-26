@@ -1,0 +1,16 @@
+strict.perms: false
+
+filebeat.inputs:
+  - type: log
+    paths:
+      - /logs/app.log
+    fields:
+      service: demo-app
+      environment: dev
+    fields_under_root: true
+
+output.kafka:
+  hosts: ["kafka:9092"]
+  topic: "app-logs"
+  codec.json:
+    pretty: false

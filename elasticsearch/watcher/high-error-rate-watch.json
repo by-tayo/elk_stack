@@ -1,0 +1,32 @@
+{
+  "trigger": {
+    "schedule": { "interval": "1m" }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "indices": ["logs-*"],
+        "body": {
+          "query": {
+            "bool": {
+              "filter": [
+                { "term": { "level": "ERROR" } },
+                { "range": { "@timestamp": { "gte": "now-5m" } } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": { "ctx.payload.hits.total.value": { "gte": 10 } }
+  },
+  "actions": {
+    "log_high_error_rate": {
+      "logging": {
+        "text": "High error rate detected: {{ctx.payload.hits.total.value}} ERROR events in the last 5 minutes"
+      }
+    }
+  }
+}

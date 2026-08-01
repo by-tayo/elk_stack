@@ -1,0 +1,21 @@
+name: Validate stack config
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  compose-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate docker-compose.yml
+        run: docker compose -f docker-compose.yml config --quiet
+
+      - name: Check referenced volume paths exist
+        run: |
+          set -e
+          for dir in app filebeat logstash/pipeline logs nagios/conf.d; do
+            test -d "$dir" || { echo "Missing expected directory: $dir"; exit 1; }
+          done

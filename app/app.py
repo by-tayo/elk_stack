@@ -1,12 +1,13 @@
 import logging
 import random
 import time
+from logging.handlers import RotatingFileHandler
 
-logging.basicConfig(
-    filename="/logs/app.log",
-    level=logging.INFO,
-    format="%(levelname)s %(asctime)s %(message)s"
+handler = RotatingFileHandler(
+    "/logs/app.log", maxBytes=10 * 1024 * 1024, backupCount=5
 )
+handler.setFormatter(logging.Formatter("%(levelname)s %(asctime)s %(message)s"))
+logging.basicConfig(level=logging.INFO, handlers=[handler])
 
 while True:
     user_id = random.randint(1, 500)
